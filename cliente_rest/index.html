@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación MAP</title>
+    <Style>
+        .seccion{display:none}
+        .activa{display:block}
+    </Style>
+    <link rel="stylesheet" type="text/css" href="estilo.css" title="Estilo principal">
+</head>
+
+<body>
+    <h1>Aplicación MAP</h1>
+    <!--Vista de acceso-->
+    <div id="login" class = "seccion activa">
+    <h2>Acceso</h2>
+        <div>Usuario: <input id="user" type="text" /></div>
+        <div>contraseña: <input id="password" type="password" /></div><br>   
+        <div><button onclick="login()">Entrar</button></div>
+        <button onclick="Registrarse()">Registrarse</button></div>
+    </div>
+    <br>
+
+    <!--Vista de Inicio-->
+    <div id="Inicio" class = "seccion">
+        <h2>Inicio</h2>
+        <p id="datosmedico"></p>
+        <table id="tabla" border="1"> 
+            <thead>
+                <tr>
+                    <th id="Id">Id</th>
+                    <th id="FCreacion">F. Creación</th>
+                    <th id="FAsignacion">F. Asignación</th>
+                    <th id="FResolucion">F. Resolución</th>
+                    <th id="Especialidad">Especialidad</th>
+                    <th id="SIP">SIP</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table><br>
+        <!--<div>
+            <label for="deletEsp">Especialidad a eliminar</label>
+            <select id="deletEsp" class="custom-select"></select>
+        </div><br>
+        <button onclick = eliminarEspExp()>Eliminar especialidad</button>-->
+        <!--<button onclick = "rellenartodosCampo()">Rellenar observaciones</button>-->
+        <div><button onclick="Vistaexpediente()">Nuevo Expediente</button><br>
+        <button onclick="salir()">Salir</button></div>
+        <!--<button onclick = "eliminarsinasignar()">Eliminar Expedientes sin asignar</button>-->
+    </div>
+
+    <!--Vista de Datos Médicos-->
+    <div id="datos" class = "seccion">
+        <H2>Vista de Datos Médicos</H2>
+        <div>Nombre: <input id="doctorname" type="text" /></div>
+        <div>Apellidos: <input id="doctorsurnames" type="text" /></div>
+        <div>Login: <input id="doctorlogin" type="text" /></div>  
+        <div>Contraseña: <input id="doctorpassword" type="text" /></div>  
+        <div>
+            <label for="centro">Centro:</label>
+            <select id="centro" class="custom-select"></select>
+        </div><br>
+        <div><button onclick="guardarmedico()">Guardar</button>
+        <button onclick="salir()">Salir</button></div>
+        <button onclick="eliminarMAP()">Eliminar MAP</button></div>
+    </div>
+
+    <!--Vista de Expediente-->
+    <div id="expediente" class = "seccion">
+        <H2>Expediente</H2>
+        <div>ID: <input id="id" type="text" disabled/></div>
+        <div>Med.Esp: <input id="medesp" type="text" disabled/></div>
+        <div>
+            <label for="esp">Especialidad:</label>
+            <select id="esp" class="custom-select"></select>
+        </div>
+        <div>SIP: <input id="sipe" type="text" /></div>
+        <div>Nombre: <input id="clientname" type="text" /></div>
+        <div>Apellidos: <input id="clientsurnames" type="text" /></div>
+        <div>F.Nacimiento: <input id="f_nam" type="date" /></div>  
+        <label for="genero">Género:</label>
+        <select name = "genero" id="genero" class="custom-select">
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+        </select>
+        <div>Observaciones: <textarea id="observaciones" type="text"></textarea></div>  
+        <div>Solicitud: <textarea id="solicitud" type="text"></textarea></div> 
+        <div>Respuesta: <textarea id="respuesta" type="text" disabled></textarea></div>  
+        <div>F.Solicitud: <input id="fsolicitud" type="date" disabled/></div>
+        <div>F.Asignación: <input id="fasig" type="date" disabled/></div>
+        <div>F.Resolución: <input id="fres" type="date" disabled/></div>
+        <div><button onclick="guardarexpediente()">Guardar</button>
+        <button onclick="volverListado()">Volver al listado</button></div>
+    </div>
+    <!-- Vista de Chat Individual -->
+    <div id="chat" class="seccion">
+        <h2>Chat</h2>
+        <h3 id="saludachat"></h3>
+        <table id="tablaMensajes" border="1"> 
+            <tr>
+                <th id="fechayhora">Fecha y Hora</th>
+                <th id="nametable">Nombre</th>
+                <th id="message">Texto</th>
+            </tr>
+        </table>
+        <div>Mensaje: <textarea id="mensajes" type="text"></textarea></div>  
+        <button onclick="enviar()">Enviar mensaje</button>
+        <button onclick="volverListado()">Volver al listado</button>
+    </div>
+
+    <!-- Vista de Chat Grupal -->
+    <div id="groupchat" class="seccion">
+        <h2>Chat Grupal</h2>
+        <table id="tablaMensajesGroup" border="1"></table>
+        <div>Mensaje: <textarea id="mensajesgroup" type="text"></textarea></div>  
+        <button onclick="enviar()">Enviar mensaje</button>
+        <button onclick="volverListado()">Volver al listado</button>
+    </div>
+
+    <script src="rest.js"></script>
+    <script src="main.js"></script>
+    <script>
+        var seccionActual = "login";
+        function cambiarSeccion(seccion){
+        document.getElementById(seccionActual).classList.remove("activa");
+        document.getElementById(seccion).classList.add("activa");
+        seccionActual=seccion;
+        }
+        function salir(){
+            cambiarSeccion("login")
+        }
+        function Vistaexpediente(){
+            cambiarSeccion("expediente")
+            especialidades()
+            editexpediente = undefined
+        }
+        function Registrarse(){
+            cambiarSeccion("datos")
+            centros()
+            idmap = undefined
+        }
+        function volverListado(){
+            cambiarSeccion("Inicio")
+        }
+    </script>
+</body>
+
+</html>

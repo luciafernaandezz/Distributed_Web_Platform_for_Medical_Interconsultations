@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación ME</title>
+    <Style>
+        .seccion{display:none}
+        .activa{display:block}
+    </Style>
+    <link rel="stylesheet" type="text/css" href="estilo.css" title="Estilo principal"/>
+	<script src="rest.js"></script> 
+	<script src="rpc.js"></script>
+	<script src="main.js"></script>
+</head>
+
+<body>
+	<h1>Aplicación ME</h1>
+	<!--Vista de acceso-->
+	<div id="login" class = "seccion activa">
+		<h2>Acceso</h2>
+			<div>Usuario: <input id="user" type="text" /></div>
+			<div>contraseña: <input id="password" type="password" /></div><br>   
+			<div><button onclick="Acceder()">Entrar</button></div>
+<div><button onclick="Registrarse()">Registrarse</button></div>
+	</div>
+
+	<!--Vista de Datos Médicos-->
+    <div id="datos" class = "seccion">
+        <H2>Vista de Datos Médicos</H2>
+        <div>Nombre: <input id="doctorname" type="text" /></div>
+        <div>Apellidos: <input id="doctorsurnames" type="text" /></div>
+        <div>Login: <input id="doctorlogin" type="text" /></div>  
+        <div>Contraseña: <input id="doctorpassword" type="text" /></div>  
+        <div>
+            <label for="centro">Centro:</label>
+            <select id="centro" class="custom-select"></select>
+        </div>
+		<div>
+            <label for="especialidad">Especialidad:</label>
+            <select id="especialidad" class="custom-select"></select>
+        </div><br>
+        <div><button onclick="guardarmedico()">Guardar</button>
+        <button onclick="salir()">Salir</button></div>
+        <!--<div>
+            <input id="eliminarME" type ="int">
+            <button onclick = "deleteME()">Eliminar ME</button>
+        </div>-->
+    </div>
+
+	<!--Vista de Inicio-->
+    <div id="Inicio" class = "seccion">
+        <h2>Inicio</h2>
+        <p id="datosmedico"></p>
+        <button onclick="asignarexpediente()">Asignar Expediente</button><br>
+		<button onclick="mostrarExpAsignados()">Mostrar expedientes asignados</button><br>
+        <!--<button onclick="asignarDesasignados()">Autoasignar</button>-->
+        <button onclick="salir()">Salir</button>
+    </div>
+
+	<!--Vista de Expediente-->
+    <div id="expediente" class = "seccion">
+        <H2>Expediente</H2>
+        <div>ID: <input id="id" type="text" disabled/></div>
+        <div>Med.Esp: <input id="medesp" type="text" disabled/></div>
+        <div disabled>
+            <label for="esp">Especialidad:</label>
+            <select id="esp" class="custom-select"></select>
+        </div>
+        <div>SIP: <input id="SIP" type="text" disabled/></div>
+        <div>Nombre: <input id="clientname" type="text" disabled/></div>
+        <div>Apellidos: <input id="clientsurnames" type="text" disabled/></div>
+        <div>F.Nacimiento: <input id="f_nam" type="date"disabled/></div>  
+        <label for="genero">Género:</label>
+        <select name = "genero" id="genero" class="custom-select" disabled>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+        </select>
+        <div>Observaciones: <textarea id="observaciones" type="text"disabled></textarea></div>  
+        <div>Solicitud: <textarea id="solicitud" type="text" disabled></textarea></div> 
+        <div>Respuesta: <textarea id="respuesta" type="text"></textarea></div>  
+        <div>F.Solicitud: <input id="fsolicitud" type="date" disabled/></div>
+        <div>F.Asignación: <input id="fasig" type="date" disabled/></div>
+        <div>F.Resolución: <input id="fres" type="date" disabled/></div>
+        <div><button onclick="resolver()">Resolver</button>
+        <button onclick="vistaListado()">Volver al listado</button></div>
+    </div>
+
+	<!--Vista de Asignar Expediente-->
+    <div id="asignar" class = "seccion">
+        <h2>Asignar Expediente</h2>
+        <table id="tablasignar" border="1"> </table><br>
+        <!--<div>MAP a eliminar: <input id="deleteMed" type="int" /></div><br>   
+        <div><button onclick="eliminarExpedientesMap()">Eliminar Médico</button>-->
+        <!--<button onclick="asignarDesasignados()">Asignar todos</button>-->
+        <button onclick="VistaInicio()">Volver al Inicio</button><br>
+    </div>
+    <!--Vista de Expedientesasignados-->
+    <div id="asignados" class = "seccion">
+        <h2>Expedientes asignados</h2>
+        <table id="tablasignados" border="1"> </table><br>
+        <!--<button onclick = "desasignarAsignados()">Desasignar Todos</button>-->
+        <!--<div>ME a reasignar: <input id="reasignar" type="int" /></div><br>   
+        <div><button onclick="reasigResolv()">Reasignar y Resolver</button>-->
+        <!--<button onclick="asignarDesasignados()">Asignar todos</button>-->
+        <!--<button onclick ="responder()">Responder todos</button>-->
+        <button onclick="contarExp()">Contar Expedientes </button>
+        <button onclick="VistaInicio()">Volver al inicio</button><br>
+    </div>
+
+	<!-- Vista de Chat Individual -->
+    <div id="chat" class="seccion">
+        <h2>Chat</h2>
+        <h3 id="saludachat"></h3>
+        <table id="tablaMensajes" border="1"></table>
+        <div>Mensaje: <textarea id="mensajes" type="text"></textarea></div>  
+        <button onclick="enviar()">Enviar mensaje</button>
+        <button onclick="asignarexpediente()">Volver al listado</button>
+    </div>
+    <!--Vista de Chat grupal-->
+    <div id="groupchat" class = "seccion">
+        <H2>Chat Grupal</H2>
+        <table id="tablaMensajesGroup" border="1"> 
+            <tr>
+                <th id = "fechayhoragrup">Fecha y Hora</th>
+                <th id = "nametablegrup">Nombre</th>
+                <th id ="messagegrup">Texto</th>
+            </tr>
+        </table>
+        <div>Mensaje: <textarea id="mensajesgroup" type="text"></textarea></div>  
+        <button onclick="enviar()">Enviar mensaje</button>
+        <button onclick="VistaInicio()">Volver al listado</button><br>
+    </div>
+	<script>
+        var seccionActual = "login";
+        function cambiarSeccion(seccion){
+        document.getElementById(seccionActual).classList.remove("activa");
+        document.getElementById(seccion).classList.add("activa");
+        seccionActual=seccion;
+        }
+        function salir(){
+            cambiarSeccion("login")
+        }
+		function Registrarse(){
+            cambiarSeccion("datos")
+            mostrarCentros()
+			mostrarEspecialidades()
+			id_me=undefined
+        }
+		function VistaInicio(){
+			cambiarSeccion("Inicio")
+		}
+        function vistaListado(){
+            cambiarSeccion("asignar")
+        }
+	</script>
+</body>
+
+
+</html>

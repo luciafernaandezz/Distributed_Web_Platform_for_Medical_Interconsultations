@@ -1,0 +1,119 @@
+body {
+    background-color: #fff; /* Fondo blanco */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    color: #b08b57; /* Marrón más claro */
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    color: #b08b57; /* Marrón más claro */
+}
+
+h3 {
+    margin-top: 0;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+input,
+select,
+textarea,
+button {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+button {
+    background-color: #f5f5dc; /* Beige claro */
+    color: #b08b57; /* Marrón más claro */
+    cursor: pointer;
+    border: 1px solid #b08b57; /* Marrón más claro */
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #e0e0b8; /* Beige más claro al pasar el ratón */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #b08b57; /* Marrón más claro */
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #c09c6e; /* Marrón claro */
+    color: white;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b08b57; /* Marrón más claro */
+    border-radius: 5px;
+    background-color: #fff; /* Blanco */
+}
+
+textarea {
+    width: 100%;
+}
+
+.seccion {
+    display: none;
+    background-color: #f5f5dc; /* Beige claro */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activa {
+    display: block;
+}
+/* Estilos generales para la tabla */
+#tablaMensajes {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para las filas de la tabla */
+#tablaMensajes tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para las celdas */
+#tablaMensajes td {
+    padding: 8px;
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+/* Mensajes enviados (Verde) */
+#tablaMensajes tr.mensaje-enviado td {
+    background-color: #d4f8c6; /* Verde claro */
+    text-align: right; /* Alinear a la derecha */
+    font-weight: bold;
+}
+
+/* Mensajes recibidos (Gris) */
+#tablaMensajes tr.mensaje-recibido td {
+    background-color: #f1f1f1; /* Gris claro */
+    text-align: left; /* Alinear a la izquierda */
+}
